@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -20,7 +21,7 @@ class Item(models.Model):
   price = models.FloatField()
   image = models.ImageField(upload_to='item_images', blank=True, null=True) # One needs 'Pillow' library in order to use ImageField
   is_sold = models.BooleanField(default=False)
-  created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
+  created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='items', on_delete=models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   
   def __str__ (self):

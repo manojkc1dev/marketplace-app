@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from item.models import Category, Item
 
-from .forms import SignUpForm
+from accounts.forms import SignupForm
 
 # Create your views here.
 def index(request):
@@ -20,14 +20,14 @@ def contact(request):
 
 def signup(request):
   if request.method == 'POST':
-    form = SignUpForm(request.POST)
+    form = SignupForm(request.POST)
     
     if form.is_valid():
       form.save()
       
       return redirect('/login/')
   else:
-    form = SignUpForm()
+    form = SignupForm()
   
   return render(request, 'core/signup.html', {
     'form': form,
@@ -37,3 +37,4 @@ def signup(request):
 def logout_user(request):
   logout(request)
   return redirect('dashboard:index')
+

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -11,7 +12,7 @@ class Conversation(models.Model):
     on_delete=models.CASCADE
   )
   members = models.ManyToManyField(
-    User,
+    settings.AUTH_USER_MODEL,
     related_name='conversations', 
   )
   created_at = models.DateTimeField(auto_now=True)
@@ -29,7 +30,7 @@ class ConversationMessage(models.Model):
   content = models.TextField()
   created_at = models.DateTimeField(auto_now=True)
   created_by = models.ForeignKey(
-    User, 
+    settings.AUTH_USER_MODEL, 
     related_name='created_messages', 
     on_delete=models.CASCADE
   )
